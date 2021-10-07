@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../service/api.service";
 import {Router} from "@angular/router";
+import {MenuService} from "../service/menu.service";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   constructor(
     private api: ApiService,
     private router: Router,
+    public menu: MenuService,
   ) {
     this.albums = []
   }
@@ -29,7 +31,9 @@ export class AppComponent implements OnInit {
   navigate(album: string) {
     const link = ['/album', album];
     this.router.navigate(link)
-      .then();
+      .then(() => {
+        this.menu.openMenu = false
+      });
   }
 
   navigateHomePage() {

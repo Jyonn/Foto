@@ -11,6 +11,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  transition: 0.5s;
+  z-index: 0;
+}
+.container .header .menu {
+  display: none;
 }
 .container .header .title {
   font-size: 20px;
@@ -38,5 +43,36 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+@media screen and (max-width: 1024px) {
+  .container .header {
+    width: 100%;
+  }
+  .container .header.mask {
+    background: #EEEDEA;
+    z-index: 1;
+  }
+  .container .header.mask .album-list,
+  .container .header.mask .copyright {
+    display: block;
+  }
+  .container .header .title {
+    display: inline-block;
+  }
+  .container .header .menu {
+    margin-left: 20px;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .container .header .album-list,
+  .container .header .copyright {
+    display: none;
+  }
+  .container .foto-container {
+    width: 100%;
+    top: 80px;
+    height: calc(100% - 80px);
+  }
 }
 /*# sourceMappingURL=app.component.css.map */

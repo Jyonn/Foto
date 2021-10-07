@@ -12,6 +12,12 @@
     position: absolute;
     top: 0;
     left: 0;
+    transition: 0.5s;
+    z-index: 0;
+
+    .menu {
+      display: none;
+    }
 
     .title {
       font-size: 20px;
@@ -44,5 +50,43 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .header {
+      width: 100%;
+
+      &.mask {
+        background: #EEEDEA;
+        z-index: 1;
+
+        .album-list, .copyright {
+          display: block;
+        }
+      }
+
+      .title {
+        display: inline-block;
+      }
+
+      .menu {
+        margin-left: 20px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .album-list, .copyright {
+        display: none;
+      }
+    }
+
+    @foto-top: 80px;
+
+    .foto-container {
+      width: 100%;
+      top: @foto-top;
+      height: calc(~'100% - @{foto-top}');
+    }
   }
 }

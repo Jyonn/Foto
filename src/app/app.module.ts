@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {HomePageComponent} from "../component/homepage.component";
 import {AlbumComponent} from "../component/album.component";
+import {MenuService} from "../service/menu.service";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {AlbumComponent} from "../component/album.component";
     ApiService,
     RequestService,
     OneWorkerService,
+    MenuService,
   ],
   bootstrap: [AppComponent]
 })
