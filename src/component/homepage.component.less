@@ -1,0 +1,16 @@
+@padding: 20px;
+
+.homepage-container {
+  position: absolute;
+  bottom: @padding;
+  right: @padding;
+  height: 66%;
+  width: calc(~'100% - 2 * @{padding}');
+
+  .pinned-foto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: 0.5s;
+  }
+}
