@@ -1,8 +1,9 @@
 export class Foto {
-  source: {
-    source: string
-    color: string
+  sources: {
+    rotate: string
     origin: string
+    square: string
+    color: string
   }
 
   width: number
@@ -13,11 +14,12 @@ export class Foto {
 
   widthPx: string
   heightPx: string
+  type: string
 
   loaded: boolean = false
 
-  constructor({source, width, height, foto_id, orientation, album}: Foto) {
-    this.source = source
+  constructor({sources, width, height, foto_id, orientation, album}: Foto, type: string) {
+    this.sources = sources
     this.width = width
     this.height = height
     this.foto_id = foto_id
@@ -26,19 +28,30 @@ export class Foto {
 
     this.widthPx = '0px'
     this.heightPx = '0px'
+    this.type = type
 
     this.preLoad()
   }
 
-  get backgroundUrl() {
-    if (this.loaded) {
-      return `url('${this.source.source}')`
+  get defaultUrl() {
+    if (this.type == 'square') {
+      return this.sources.square;
     }
-    let color = this.source.color.replace('0x', '#')
-    return `linear-gradient(to right bottom, ${color}, ${color})`
+    return this.sources.rotate;
   }
 
-  setFeasibleSize(maxWidth: number, maxHeight: number) {
+  get backgroundUrl() {
+    if (this.loaded) {
+      return `url('${this.defaultUrl}')`
+    }
+    return ''
+  }
+
+  get color() {
+    return this.sources.color.replace('0x', '#')
+  }
+
+  setFeasiblePinnedSize(maxWidth: number, maxHeight: number) {
     let wRatio = maxWidth / this.width
     let hRatio = maxHeight / this.height
     let width, height
@@ -55,10 +68,14 @@ export class Foto {
     this.heightPx = height + 'px'
   }
 
+  setFeasibleAlbumSize(size: number) {
+    this.widthPx = this.heightPx = size + 'px'
+  }
+
   preLoad() {
     const image = new Image();
 
-    image.src = this.source.source;
+    image.src = this.defaultUrl;
     image.onload = () => {
       this.loaded = true
     };

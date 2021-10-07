@@ -2,10 +2,13 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  height: 66%;
+  height: calc(100% - 2 * 20px);
   width: calc(100% - 2 * 20px);
 }
-.homepage-container .pinned-foto {
+.homepage-container .homepage-inner-container {
+  position: relative;
+}
+.homepage-container .homepage-inner-container .pinned-foto {
   position: absolute;
   bottom: 0;
   right: 0;

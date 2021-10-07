@@ -1,9 +1,12 @@
-<div class="homepage-container" #container>
-  <div class="pinned-foto img-fit" (click)="displayNextFoto(true)"
-       [ngStyle]="{
-          'background-image': pinnedFotos[pinnedIndex]?.backgroundUrl,
-          'width': pinnedFotos[pinnedIndex]?.widthPx,
-          'height': pinnedFotos[pinnedIndex]?.heightPx
-       }">
+<div class="homepage-container">
+  <div class="homepage-inner-container full"  #homeContainer>
+    <div class="pinned-foto img-fit" (click)="displayNextFoto(true)"
+         [ngStyle]="{
+            'background-image': foto?.backgroundUrl,
+            'background-color': foto?.color,
+            'width': foto?.widthPx,
+            'height': foto?.heightPx
+         }">
+    </div>
   </div>
 </div>

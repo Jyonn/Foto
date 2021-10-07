@@ -1,12 +1,21 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {HomePageComponent} from "../component/homepage.component";
+import {AlbumComponent} from "../component/album.component";
 
 const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
   },
+  {
+    path: 'album/:name',
+    component: AlbumComponent,
+  },
+  {
+    path: '**',
+    component: HomePageComponent,
+  }
 ];
 
 @NgModule({

@@ -1,35 +1,37 @@
-import {Component, ElementRef, OnDestroy, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from "@angular/core";
 import {Foto} from "../model/foto";
 import {ApiService} from "../service/api.service";
 import {fromEvent, Subscription} from "rxjs";
-import {debounceTime} from "rxjs/operators";
 
 @Component({
   styleUrls: ['homepage.component.less'],
   templateUrl: 'homepage.component.html',
 })
-export class HomePageComponent implements OnDestroy {
-  pinnedFotos: Array<Foto>
-  pinnedIndex: number = 0
-  @ViewChild('container') container!: ElementRef
+export class HomePageComponent implements OnDestroy, AfterViewInit {
+  fotos: Array<Foto>
+  foto?: Foto
+  @ViewChild('homeContainer') container!: ElementRef
 
-  _resizeSubscription: Subscription;
-  _lastAppearTime: number;
+  _resizeSubscription!: Subscription;
+  lastAppearTime: number;
+  index: number = 0
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
   ) {
-    this.pinnedFotos = []
-    this.api.homepageGetter.observedBy(this.init.bind(this))
+    this.fotos = []
+    this.lastAppearTime = new Date().getTime()
+  }
 
+  ngAfterViewInit() {
+    this.api.homepageGetter.observedBy(this.init.bind(this))
     this._resizeSubscription = fromEvent(window, 'resize')
       .subscribe(this.fitFotoSize.bind(this));
-    this._lastAppearTime = new Date().getTime()
   }
 
   init(resp: any) {
     for (let foto of resp.fotos) {
-      this.pinnedFotos.push(new Foto(foto))
+      this.fotos.push(new Foto(foto, 'rotate'))
     }
 
     setInterval(() => {
@@ -43,7 +45,7 @@ export class HomePageComponent implements OnDestroy {
     let e = this.container.nativeElement as HTMLElement
     let width = e.offsetWidth, height = e.offsetHeight
 
-    this.pinnedFotos.forEach(foto => foto.setFeasibleSize(width, height))
+    this.fotos.forEach(foto => foto.setFeasiblePinnedSize(width, height))
   }
 
   ngOnDestroy(): void {
@@ -54,9 +56,16 @@ export class HomePageComponent implements OnDestroy {
 
   displayNextFoto(compulsory = false) {
     let currentTime = new Date().getTime()
-    if (currentTime - this._lastAppearTime >= 5000 || compulsory) {
-      this.pinnedIndex = (this.pinnedIndex + 1) % this.pinnedFotos.length
-      this._lastAppearTime = currentTime
+    if (this.fotos.length === 0) {
+      return
+    }
+    if (!this.foto) {
+      this.foto = this.fotos[this.index]
+    }
+    if (currentTime - this.lastAppearTime >= 5000 || compulsory) {
+      this.index = (this.index + 1) % this.fotos.length
+      this.lastAppearTime = currentTime
+      this.foto = this.fotos[this.index]
     }
   }
 }

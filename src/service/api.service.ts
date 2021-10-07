@@ -5,15 +5,17 @@ import {Subscriber} from "../model/utils/subscriber";
 @Injectable()
 export class ApiService {
   homepageGetter: Subscriber
+  albumGetter: Subscriber
 
   constructor(
     private request: RequestService,
   ) {
     this.homepageGetter = new Subscriber()
+    this.albumGetter = new Subscriber()
   }
 
   getHomePage() {
-    this.request.get({url: '/'}).then((resp: any) => {this.homepageGetter.subscribe(resp)})
+    this.request.get({url: '/'}).then((resp: any) => this.homepageGetter.subscribe(resp))
   }
 
   getAlbum(album: string) {

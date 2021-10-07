@@ -1,8 +1,8 @@
 <div class="container full">
   <div class="header">
-    <div class="title">Jyonn Lyeu</div>
+    <div class="title" (click)="navigateHomePage()">Jyonn Lyeu</div>
     <div class="album-list">
-      <div class="album" *ngFor="let album of this.albums">{{album.name}}</div>
+      <div class="album" *ngFor="let album of this.albums" (click)="navigate(album.name)">{{album.name}}</div>
     </div>
     <div class="copyright">© 2021 Jyonn Lyeu</div>
   </div>

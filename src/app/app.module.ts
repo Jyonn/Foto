@@ -8,11 +8,13 @@ import {OneWorkerService} from "../service/utils/one-worker.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {HomePageComponent} from "../component/homepage.component";
+import {AlbumComponent} from "../component/album.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
+    AlbumComponent,
   ],
   imports: [
     BrowserModule,
