@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     const link = ['/album', album];
     this.router.navigate(link)
       .then(() => {
-        this.menu.openMenu = false
+        this.menu.closeMenu()
       });
   }
 

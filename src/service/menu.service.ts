@@ -3,20 +3,28 @@ import {Injectable} from "@angular/core";
 @Injectable()
 export class MenuService {
   menuText: string
-  openMenu: boolean
+  opening: boolean
 
   constructor() {
-    this.openMenu = false
+    this.opening = false
     this.menuText = 'Menu'
   }
 
+  closeMenu() {
+    this.opening = false
+    this.menuText = 'Menu'
+  }
+
+  openMenu() {
+    this.opening = true
+    this.menuText = 'Close'
+  }
+
   toggleMenu() {
-    if (this.openMenu) {
-      this.openMenu = false
-      this.menuText = 'Menu'
+    if (this.opening) {
+      this.closeMenu()
     } else {
-      this.openMenu = true
-      this.menuText = 'Close'
+      this.openMenu()
     }
   }
 }
