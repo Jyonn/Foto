@@ -9,7 +9,7 @@ import {fromEvent, Subscription} from "rxjs";
 })
 export class HomePageComponent implements OnDestroy, AfterViewInit {
   fotos: Array<Foto>
-  foto?: Foto
+  // foto?: Foto
   @ViewChild('homeContainer') container!: ElementRef
 
   _resizeSubscription!: Subscription;
@@ -54,18 +54,21 @@ export class HomePageComponent implements OnDestroy, AfterViewInit {
     }
   }
 
+  getOpacity(index: number): number {
+    return Number(index === this.index)
+  }
+
   displayNextFoto(compulsory = false) {
     let currentTime = new Date().getTime()
     if (this.fotos.length === 0) {
       return
     }
-    if (!this.foto) {
-      this.foto = this.fotos[this.index]
-    }
     if (currentTime - this.lastAppearTime >= 5000 || compulsory) {
-      this.index = (this.index + 1) % this.fotos.length
-      this.lastAppearTime = currentTime
-      this.foto = this.fotos[this.index]
+      let nextIndex = (this.index + 1) % this.fotos.length
+      if (this.fotos[nextIndex].loaded || compulsory) {
+        this.index = nextIndex
+        this.lastAppearTime = currentTime
+      }
     }
   }
 }

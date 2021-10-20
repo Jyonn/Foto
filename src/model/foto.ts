@@ -17,6 +17,7 @@ export class Foto {
   type: string
 
   loaded: boolean = false
+  active: boolean = false
 
   constructor({sources, width, height, foto_id, orientation, album}: Foto, type: string) {
     this.sources = sources
@@ -34,9 +35,6 @@ export class Foto {
   }
 
   get defaultUrl() {
-    if (this.type == 'square') {
-      return this.sources.square;
-    }
     return this.sources.rotate;
   }
 
