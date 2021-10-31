@@ -6,19 +6,21 @@ import {Subscriber} from "../model/utils/subscriber";
 export class ApiService {
   homepageGetter: Subscriber
   albumGetter: Subscriber
+  space: string
 
   constructor(
     private request: RequestService,
   ) {
     this.homepageGetter = new Subscriber()
     this.albumGetter = new Subscriber()
+    this.space = 'default'
   }
 
   getHomePage() {
-    this.request.get({url: '/'}).then((resp: any) => this.homepageGetter.subscribe(resp))
+    this.request.get({url: '/', paramDict: {space: this.space}}).then((resp: any) => this.homepageGetter.subscribe(resp))
   }
 
   getAlbum(album: string) {
-    return this.request.get({url: `/album/${album}`})
+    return this.request.get({url: `/album`, paramDict: {album: album, space: this.space}})
   }
 }
